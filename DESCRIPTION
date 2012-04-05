@@ -1,0 +1,9 @@
+Package: radarCode
+Version: 0.1-0
+Date: 2012-04-05
+Title: Radar code searches and optimization
+Author: Ilkka Virtanen <ilkka.i.virtanen@oulu.fi> 
+Maintainer: Ilkka Virtanen <ilkka.i.virtanen@oulu.fi>
+Description: Routines for radar code searches, evaluation, and optimization
+License:
+Depends: 
