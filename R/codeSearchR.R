@@ -1,7 +1,7 @@
 codeSearchR <- function(nCode,nBit,nPhase=2,nIter=1000,maxLag=1,limit=0,verb=FALSE,nCores=1){
 # code search with the FFT-method
   codes <- list()
-  sfile <- paste('codes_',as.character(nCode),'_',as.character(nBit),'.Rdata',sep='')
+  sfile <- paste('codes_',as.character(nCode),'_',as.character(nBit),'_',as.character(nPhase),'.Rdata',sep='')
   i <- 1
   while(TRUE){
       if(nCores==1){
