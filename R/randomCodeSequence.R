@@ -10,10 +10,11 @@ randomCodeSequence <- function( nCode=1 , nBits=1 , nPhases=2 , nAmplitudes=1)
       {
         code[[k]] <- exp( 2i * pi * floor( runif( nBits ) * nPhases ) / nPhases ) * ceiling( runif( nBits ) *  nAmplitudes  ) / nAmplitudes
       }
-    
+
 
     return(code)
 
   } #randomCodeSequence
+
 
 

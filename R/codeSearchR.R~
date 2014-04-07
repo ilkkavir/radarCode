@@ -1,0 +1,18 @@
+CodeSearchR <- function(nCode,nBit,nIter=1000,maxLag=1,limit=0,verb=FALSE){
+# code search with the FFT-method
+  codes <- list()
+  sfile <- paste('codes_',as.character(nCode),'_',as.character(nBit),sep='')
+  i <- 1
+  while(TRUE){
+    code <- optimizeR(nCode=nCode,nBit=nBit,nIter=nIter,maxLag=maxLag,verb=verb)
+    if (code$eval > limit){
+      print(code$eval)
+      if (any(dir()==sfile)){
+        load(sfile)
+        i <- length(codes)+1
+      }
+      codes[[i]] <- code
+      save(codes,file=sfile)
+    }
+  }
+} #runRsearch
