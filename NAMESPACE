@@ -1,1 +1,1 @@
-export(makeStrongCode,evalR,codeSearchR)
+export(makeStrongCode,evalR,codeSearchR,codeSearchV)
