@@ -1,4 +1,4 @@
-codeSearchV <- function(nCode,nBit,nPhase=2,nIter=1000,limit=Inf,verb=FALSE,nCores=1){
+codeSearchV <- function(nCode,nBit,nPhase=2,nIter=1000,limit=Inf,verb=FALSE,nCores=1,nRun=Inf){
     # code search with the FFT-method
     #
     # Similar with codeSearchR but uses the routines in file quadSearch.R from Juha
@@ -7,7 +7,8 @@ codeSearchV <- function(nCode,nBit,nPhase=2,nIter=1000,limit=Inf,verb=FALSE,nCor
     codes <- list()
     sfile <- paste('codesV_',as.character(nCode),'_',as.character(nBit),'_',as.character(nPhase),'.Rdata',sep='')
     i <- 1
-    while(TRUE){
+    nn <- 0
+    repeat{
         if(nCores==1){
             code <- quadphasesearch(ncodes=nCode,codelen=nBit,nphases=nPhase,niter=nIter,verbose=verb)
             if (code$var < limit){
@@ -37,5 +38,7 @@ codeSearchV <- function(nCode,nBit,nPhase=2,nIter=1000,limit=Inf,verb=FALSE,nCor
                 }
             }
         }
+        nn <- nn + nCores
+        if( nn >= nRun ) return(nn)
     }
-} #codeSearchV
+}

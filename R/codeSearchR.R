@@ -1,9 +1,10 @@
-codeSearchR <- function(nCode,nBit,nPhase=2,nIter=1000,maxLag=1,limit=0,verb=FALSE,nCores=1){
+codeSearchR <- function(nCode,nBit,nPhase=2,nIter=1000,maxLag=1,limit=0,verb=FALSE,nCores=1,nRun=Inf){
 # code search with the FFT-method
   codes <- list()
   sfile <- paste('codesR_',as.character(nCode),'_',as.character(nBit),'_',as.character(nPhase),'.Rdata',sep='')
   i <- 1
-  while(TRUE){
+  nn <- 0
+  repeat{
       if(nCores==1){
           code <- optimizeR(nCode=nCode,nBit=nBit,nPhase=nPhase,nIter=nIter,maxLag=maxLag,verb=verb)
           if (code$eval > limit){
@@ -33,5 +34,7 @@ codeSearchR <- function(nCode,nBit,nPhase=2,nIter=1000,maxLag=1,limit=0,verb=FAL
               }
           }
       }
+      nn <- nn + nCores
+      if( nn >= nRun ) return(nn)
   }
-} #runRsearch
+}
