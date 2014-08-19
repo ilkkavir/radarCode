@@ -378,6 +378,42 @@ ACtest <- function(cg,maxLag=0){
 
 } # ACtest
 
+ACtest.strong <- function(cg){
+# test if the given code is a strong type 1 alternating code
+
+    if(!is.list(cg)) stop("the code sequence must be a list")
+    ncode <- length(cg)
+    nbit <- length(cg[[1]])
+
+    codemat <- matrix(unlist(cg),nrow=ncode,byrow=T)
+
+    test <- 0
+    for(l1 in seq(nbit-1)){
+        l2max <- 1
+        if(l1==(nbit-1)) l2max <- 0
+        for(l2 in seq(-1,l2max)){
+            lmat1 <- codemat[,1:(nbit-l1)]*Conj(codemat[,(l1+1):nbit])
+            lmat2 <- codemat[,1:(nbit-l2-l1)]*Conj(codemat[,(l2+l1+1):nbit])
+            for(m in seq(dim(lmat1)[2])){
+                for(n in seq(dim(lmat2)[2])){
+                    if(!((l2==0)&(m==n))){
+                        test <- test + abs(sum(lmat1[,m]*Conj(lmat2[,n])))
+                    }
+                }
+            }
+        }
+    }
+
+    if(test){
+        cat("The code is not a strong alternating code.\n")
+    }else{
+        cat("The code is a strong alternating code.\n")
+    }
+
+  invisible(test)
+
+} # ACtest.strong
+
 
 #makeStrong <- function(codeOrig){
 ## convert a set of weak alternating codes into a
