@@ -6,5 +6,5 @@ Author: Ilkka Virtanen <ilkka.i.virtanen@oulu.fi>, Juha Vierinen <x@mit.edu>
 Maintainer: Ilkka Virtanen <ilkka.i.virtanen@oulu.fi>
 Description: Routines for radar code searches, evaluation, and optimization
 License:
-Depends: multicore
+Depends: parallel
 Copyright: University of Oulu, Finland
