@@ -1,1 +1,1 @@
-export(makeStrongCode,evalR,codeSearchR,codeSearchV,searchStrongBinaryAlterCodes,searchWeakBinaryAlterCodes,ACtest.strong)
+export(makeStrongCode,evalR,codeSearchR,codeSearchV,searchStrongBinaryAlterCodes,searchWeakBinaryAlterCodes,ACtest.strong,rangeAmbigMF)
