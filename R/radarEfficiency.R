@@ -17,6 +17,7 @@ radarEfficiency <- function(experiment,rangeLimits=seq(1,sum(unique(experiment$I
     TXbit <- makeTXenv(expTmp,1)!=0
     ns <- length(TXbit)
     nl <- length(lagLimits)-1
+    nr <- length(rangeLimits)-1
     
     ## a matrix for the efficiencies (first without integration in range/lag)
     minLag <- min(lagLimits)
@@ -79,7 +80,7 @@ radarEfficiency <- function(experiment,rangeLimits=seq(1,sum(unique(experiment$I
     out$efficiency <- eff
     out$rangeLimits <- rangeLimits
     out$lagLimits <- lagLimits
-    out$range <- rangeLimits[1:nr1]+diff(rangeLimits)/2
+    out$range <- rangeLimits[1:nr]+diff(rangeLimits)/2
     out$lag <- lagLimits[1:nl]+diff(lagLimits)/2
 
     out$eff1 <- eff1
