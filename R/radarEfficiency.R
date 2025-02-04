@@ -1,4 +1,4 @@
-radarEfficiency <- function(experiment,rangeLimits=seq(1,sum(unique(experiment$IPP/experiment$baudLength))),lagLimits=seq(0,sum(unique(experiment$IPP/experiment$baudLength)))){
+radarEfficiency <- function(experiment,rangeLimits=seq(1,sum(unique(experiment$IPP/experiment$baudLength))),lagLimits=seq(0,sum(unique(experiment$IPP/experiment$baudLength))),remote=FALSE){
     ## 
     ## Calculate absolute radar efficiencies of modulation for given range-gates and time lags
     ##  
@@ -36,6 +36,11 @@ radarEfficiency <- function(experiment,rangeLimits=seq(1,sum(unique(experiment$I
         Rbit <- TXbit[1:(nrep*ns-il)] & TXbit[(il+1):(nrep*ns)]
         OKbit <- !TXbit[1:(nrep*ns-il)] & !TXbit[(il+1):(nrep*ns)]
 
+        ## all data samples are usable at remotes
+        if(remote){
+            OKbit[] <- TRUE
+        }
+        
         lowCount <- 0
         for(rl in seq(1,maxRange)){
             if(Rbit[rl]){
@@ -50,6 +55,7 @@ radarEfficiency <- function(experiment,rangeLimits=seq(1,sum(unique(experiment$I
             }else{
                 lowCount <- lowCount + 1
             }
+            if(remote) lowCount <- Inf
             if( OKbit[rl]  & (lowCount>=minRange)){
                 eff1[,icol] <- eff1[,icol] + Rbit[(rl-maxRange):(rl-minRange)]
             }
