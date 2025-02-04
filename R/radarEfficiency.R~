@@ -1,0 +1,15 @@
+radarEfficiency <- function(experiment,rangeLimits=seq(1,sum(unique(experiment$IPP))),lagLimits=seq(0,sum(unique(experiment$IPP)))){
+    ## 
+    ## Calculate absolute radar efficiencies of modulation for given range-gates and time lags
+    ##  
+    ## INPUT:
+    ##   experiment   an "experiment list" of phase-codes, IPPs, and bit length
+    ##   rangeLimits  range gate limits (in sample units)
+    ##   lagLimits    lag integration limits (in sample units)
+    ##   
+    ## IV 2025
+    ## 
+
+
+    
+}
