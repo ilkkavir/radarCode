@@ -460,3 +460,32 @@ randomizeAC <- function(codeOrig){
 
 } #randomizeAC
 
+## intToBin from R.utils..
+intToBin <- function (x) 
+{
+    y <- as.integer(x)
+    y <- format.binmode(y)
+    y <- as.character(y)
+    dim(y) <- dim(x)
+    return(y)
+}
+
+format.binmode <- function (x, ...) 
+{
+    isna <- is.na(x)
+    y <- x[!isna]
+    ans0 <- character(length = length(y))
+    neg <- which(y < 0)
+    if (length(neg) > 0) {
+        y[neg] <- y[neg] + 1L + .Machine$integer.max
+    }
+    z <- NULL
+    while (any(y > 0) || is.null(z)) {
+        z <- y%%2
+        y <- floor(y/2)
+        ans0 <- paste(z, ans0, sep = "")
+    }
+    ans <- rep(NA_character_, times = length(x))
+    ans[!isna] <- ans0
+    ans
+}

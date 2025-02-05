@@ -1,4 +1,4 @@
-radarEfficiency <- function(experiment,rangeLimits=seq(1,sum(unique(experiment$IPP/experiment$baudLength))),lagLimits=seq(0,sum(unique(experiment$IPP/experiment$baudLength))),remote=FALSE){
+radarEfficiency <- function(experiment,rangeLimits=seq(1,sum(unique(experiment$IPP/experiment$baudLength))),lagLimits=seq(0,sum(unique(experiment$IPP/experiment$baudLength))),remote=FALSE,maxr=Inf){
     ## 
     ## Calculate absolute radar efficiencies of modulation for given range-gates and time lags
     ##  
@@ -31,6 +31,10 @@ radarEfficiency <- function(experiment,rangeLimits=seq(1,sum(unique(experiment$I
     nrep <- ceiling((max(maxRange,maxLag)+ns)/length(TXbit)) + 1
     TXbit <- rep(TXbit,nrep)
 
+    if(length(maxr)<nl){
+        maxr <- c(maxr,rep(maxr[length(maxr)],nl-length(maxr)))
+    }
+    
     ## calculate efficiencies at each range and lag (the lowest range will be at the last row...)
     for(il in seq(minLag,maxLag)){
         icol <- il - minLag + 1
@@ -80,11 +84,24 @@ radarEfficiency <- function(experiment,rangeLimits=seq(1,sum(unique(experiment$I
     out$efficiency <- eff
     out$rangeLimits <- rangeLimits
     out$lagLimits <- lagLimits
-    out$range <- rangeLimits[1:nr]+diff(rangeLimits)/2
-    out$lag <- lagLimits[1:nl]+diff(lagLimits)/2
+    out$range <- (rangeLimits[1:nr]+rangeLimits[2:(nr+1)]-1)/2
+    out$lag <- (lagLimits[1:nl]+lagLimits[2:(nl+1)]-1)/2
 
-    out$eff1 <- eff1
+    ## cut off unsolved columns like in LPI.gdf
+    for(il in seq(nl)){
+        out$efficiency[out$range>maxr[il],il] <- NA
+    }
+
+    rmcols <- maxr<=0
+    out$efficiency <- out$efficiency[,!rmcols]
+    out$lag <- out$lag[!rmcols]
     
+    # reverse the colums of eff1
+    out$eff1 <- apply(eff1,FUN=rev,MARGIN=2)
+    out$lag1 <- seq(minLag,maxLag)
+    out$range1 <- seq(minRange,maxRange)
+
+
     return(out)
     
 }
