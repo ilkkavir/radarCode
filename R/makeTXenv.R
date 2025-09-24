@@ -1,4 +1,12 @@
 makeTXenv <- function(radarExp,bitLen){
+    ##
+    ## make TX envelope for a given experiment and bit length.
+    ##
+    ## Notice that radarExp$IPP is given as number of one bit long samples in this version
+    ## (scales with bitLen so that duty cycle is independent of bitLen)
+    ##
+    ## IV 2025
+    ##
 
     IPP <- rep(radarExp$IPP,length.out=length(radarExp$code))
 
